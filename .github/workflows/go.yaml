@@ -60,3 +60,17 @@ jobs:
           node_image: kindest/node:${{ matrix.version }}
       - name: test-e2e
         run: make test-e2e
+  e2e-results:
+    name: e2e-results
+    if: always()
+    runs-on: ubuntu-22.04
+    needs: [test-e2e]
+    steps:
+      - run: |
+          result="${{ needs.test-e2e.result }}"
+          if [[ "$result" == "success" || "$result" == "skipped" ]]; then
+            echo "All modules passed"
+          else
+            echo "One or more modules failed" >&2
+            exit 1
+          fi
