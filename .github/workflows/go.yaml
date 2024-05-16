@@ -45,10 +45,10 @@ jobs:
       matrix:
         # Supported versions at https://kubernetes.io/releases/
         version:
-        - v1.27.14 # EOL 2024-06-28
-        - v1.28.10 # EOL 2024-10-28
-        - v1.29.5 # EOL 2025-02-28
-        - v1.30.1 # EOL 2025-06-28
+        - v1.27.13 # EOL 2024-06-28
+        - v1.28.9 # EOL 2024-10-28
+        - v1.29.4 # EOL 2025-02-28
+        - v1.30.0 # EOL 2025-06-28
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
