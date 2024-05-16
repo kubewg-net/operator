@@ -1,0 +1,83 @@
+run:
+  timeout: 5m
+  allow-parallel-runners: true
+
+issues:
+  # don't skip warning about doc comments
+  # don't exclude the default set of lint
+  exclude-use-default: false
+  # restore some of the defaults
+  # (fill in the rest as needed)
+  exclude-rules:
+    - path: "api/*"
+      linters:
+        - lll
+    - path: "internal/*"
+      linters:
+        - dupl
+        - lll
+    - path: _test\.go
+      linters:
+        - gci
+        - gosec
+    - path: "test/*"
+      linters:
+        - gosec
+
+linters:
+  disable-all: true
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - containedctx
+    - contextcheck
+    - decorder
+    - dogsled
+    - dupl
+    - dupword
+    - durationcheck
+    - errcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - exportloopref
+    - forcetypeassert
+    - gci
+    - gocheckcompilerdirectives
+    - goconst
+    - gocritic
+    - gocyclo
+    - godox
+    - gofmt
+    - goheader
+    - goimports
+    - gomoddirectives
+    - gosec
+    - gosimple
+    - govet
+    - grouper
+    - ineffassign
+    - lll
+    - loggercheck
+    - misspell
+    - nakedret
+    - nilerr
+    - nilnil
+    - noctx
+    - nosprintfhostport
+    - prealloc
+    - predeclared
+    - reassign
+    - revive
+    - staticcheck
+    - testpackage
+    - tparallel
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - usestdlibvars
+    - wastedassign
+    - whitespace
