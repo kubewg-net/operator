@@ -115,7 +115,11 @@ var _ = Describe("controller", Ordered, func() {
 				status, err := utils.Run(cmd)
 				ExpectWithOffset(2, err).NotTo(HaveOccurred())
 				if string(status) != "Running" {
-					return fmt.Errorf("controller pod in %s status", status)
+					cmd = exec.Command("kubectl", "describe",
+						"pod", controllerPodName, "-n", namespace,
+					)
+					desc, _ := utils.Run(cmd)
+					return fmt.Errorf("controller pod in %s status\n%s", status, string(desc))
 				}
 				return nil
 			}
