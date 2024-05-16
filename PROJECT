@@ -5,12 +5,13 @@
 domain: mcswain.dev
 layout:
 - go.kubebuilder.io/v4
+plugins:
+  grafana.kubebuilder.io/v1-alpha: {}
 projectName: kubewg
 repo: github.com/USA-RedDragon/kubewg
 resources:
 - api:
     crdVersion: v1
-    namespaced: false
   controller: true
   domain: mcswain.dev
   group: kubewg
