@@ -58,6 +58,7 @@ jobs:
         uses: helm/kind-action@v1.10.0
         with:
           node_image: kindest/node:${{ matrix.version }}
+          cluster_name: kind
       - name: test-e2e
         run: make test-e2e
   e2e-results:
