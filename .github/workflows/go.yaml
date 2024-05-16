@@ -37,13 +37,13 @@ jobs:
           go-version-file: go.mod
       - name: test
         run: make test
-  fmt:
-    name: fmt
+  test-e2e:
+    name: test-e2e
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - name: test
-        run: make fmt
+      - name: test-e2e
+        run: make test-e2e
