@@ -27,16 +27,6 @@ jobs:
           skip-cache: true
           # Show only new issues if it's a pull request. The default value is `false`.
           only-new-issues: true
-  project-lint:
-    name: project-lint
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-      - name: lint
-        run: make lint
   test:
     name: test
     runs-on: ubuntu-22.04
