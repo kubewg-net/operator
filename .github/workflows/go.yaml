@@ -40,10 +40,23 @@ jobs:
   test-e2e:
     name: test-e2e
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        # Supported versions at https://kubernetes.io/releases/
+        version:
+        - v1.27.14 # EOL 2024-06-28
+        - v1.28.10 # EOL 2024-10-28
+        - v1.29.5 # EOL 2025-02-28
+        - v1.30.1 # EOL 2025-06-28
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.10.0
+        with:
+          node_image: kindest/node:${{ matrix.version }}
       - name: test-e2e
         run: make test-e2e
