@@ -47,6 +47,7 @@ type InitSpec struct {
 	Image string `json:"image,omitempty"`
 
 	// DNS is the optional DNS configuration
+	// This overrides the default DNS configuration from the Network
 	//+optional
 	DNS DNSSpec `json:"dns"`
 }

@@ -6,8 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
   name: network-sample
 spec:
-  init:
-    dns:
-      nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+  dns:
+    nameservers:
+    - 1.1.1.1
+    - 8.8.8.8

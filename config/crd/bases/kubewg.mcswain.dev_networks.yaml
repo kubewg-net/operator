@@ -42,6 +42,21 @@ spec:
             type: object
           spec:
             description: NetworkSpec defines the desired state of Network
+            properties:
+              dns:
+                description: DNS is the optional DNS configuration
+                properties:
+                  nameservers:
+                    default:
+                    - 1.1.1.1
+                    - 1.0.0.1
+                    description: |-
+                      Nameservers is a list of DNS nameservers
+                      If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
+                    items:
+                      type: string
+                    type: array
+                type: object
             type: object
           status:
             description: NetworkStatus defines the observed state of Network

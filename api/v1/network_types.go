@@ -32,6 +32,10 @@ import (
 type NetworkSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// DNS is the optional DNS configuration
+	//+optional
+	DNS DNSSpec `json:"dns"`
 }
 
 // NetworkStatus defines the observed state of Network

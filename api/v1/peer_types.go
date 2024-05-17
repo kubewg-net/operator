@@ -40,7 +40,6 @@ type PeerSpec struct {
 	Pods metav1.LabelSelector `json:"pods"`
 
 	// Init is the optional initial container configuration that is applied to the peer
-	// This overrides the network's initial container configuration
 	//+optional
 	Init InitSpec `json:"init,omitempty"`
 

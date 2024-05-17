@@ -341,7 +341,9 @@ spec:
                   that is applied to this router
                 properties:
                   dns:
-                    description: DNS is the optional DNS configuration
+                    description: |-
+                      DNS is the optional DNS configuration
+                      This overrides the default DNS configuration from the Network
                     properties:
                       nameservers:
                         default:

@@ -260,12 +260,13 @@ spec:
                     type: array
                 type: object
               init:
-                description: |-
-                  Init is the optional initial container configuration that is applied to the peer
-                  This overrides the network's initial container configuration
+                description: Init is the optional initial container configuration
+                  that is applied to the peer
                 properties:
                   dns:
-                    description: DNS is the optional DNS configuration
+                    description: |-
+                      DNS is the optional DNS configuration
+                      This overrides the default DNS configuration from the Network
                     properties:
                       nameservers:
                         default:
