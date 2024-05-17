@@ -37,6 +37,12 @@ jobs:
           go-version-file: go.mod
       - name: test
         run: make test
+      - uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./cover.out
+          fail_ci_if_error: true
   test-e2e:
     name: test-e2e
     runs-on: ubuntu-22.04
