@@ -1,5 +1,5 @@
 ## Append samples of your project ##
 resources:
-- kubewg.mcswain.dev_v1alpha1_network.yaml
-- kubewg.mcswain.dev_v1alpha1_peer.yaml
+- kubewg_v1alpha1_peer.yaml
+- kubewg_v1alpha1_network.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

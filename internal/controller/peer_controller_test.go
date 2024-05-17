@@ -24,7 +24,7 @@ package controller_test
 import (
 	"context"
 
-	kubewgmcswaindevv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
 	"github.com/USA-RedDragon/kubewg/internal/controller"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -44,13 +44,13 @@ var _ = Describe("Peer Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		peer := &kubewgmcswaindevv1alpha1.Peer{}
+		peer := &kubewgv1alpha1.Peer{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Peer")
 			err := k8sClient.Get(ctx, typeNamespacedName, peer)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &kubewgmcswaindevv1alpha1.Peer{
+				resource := &kubewgv1alpha1.Peer{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -63,7 +63,7 @@ var _ = Describe("Peer Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &kubewgmcswaindevv1alpha1.Peer{}
+			resource := &kubewgv1alpha1.Peer{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 
