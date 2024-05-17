@@ -25,7 +25,7 @@ package controller
 import (
 	"context"
 
-	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -62,6 +62,6 @@ func (r *NetworkReconciler) Reconcile(ctx context.Context, _ ctrl.Request) (ctrl
 // SetupWithManager sets up the controller with the Manager.
 func (r *NetworkReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&kubewgv1alpha1.Network{}).
+		For(&kubewgv1.Network{}).
 		Complete(r)
 }

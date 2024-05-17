@@ -19,7 +19,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 The source code is available at <https://github.com/USA-RedDragon/kubewg>
 */
 
-package v1alpha1
+package v1
 
 // NameSelectorSpec defines a name selector for a resource
 type NameSelectorSpec struct {
@@ -28,7 +28,8 @@ type NameSelectorSpec struct {
 
 // DNSSpec defines the DNS configuration for a container
 type DNSSpec struct {
-	Nameservers []string `json:"nameservers,omitempty"`
+	//+optional
+	Nameservers []string `json:"nameservers"`
 }
 
 // InitSpec defines the initial container configuration
@@ -45,13 +46,16 @@ type FirewallSpec struct {
 	Ingress                     []FirewallRulesSpec `json:"ingress,omitempty"`
 }
 
+// +kubebuilder:validation:Enum=UDP;TCP;ICMP;ALL
+type Protocol string
+
 // FirewallRuleSpec defines a firewall rule
 type FirewallRuleSpec struct {
-	Protocol  string `json:"protocol"`
-	StartPort uint16 `json:"startPort"`
-	EndPort   uint16 `json:"endPort,omitempty"`
-	IP        string `json:"ip,omitempty"`
-	CIDR      string `json:"cidr,omitempty"`
+	Protocol  Protocol `json:"protocol"`
+	StartPort uint16   `json:"startPort"`
+	EndPort   uint16   `json:"endPort,omitempty"`
+	IP        string   `json:"ip,omitempty"`
+	CIDR      string   `json:"cidr,omitempty"`
 }
 
 // FirewallRulesSpec defines a list of firewall rules

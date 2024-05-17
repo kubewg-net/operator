@@ -28,7 +28,7 @@ import (
 	"flag"
 	"os"
 
-	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
 	"github.com/USA-RedDragon/kubewg/internal/controller"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
@@ -55,7 +55,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(kubewgv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(kubewgv1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 

@@ -24,7 +24,7 @@ package controller
 import (
 	"context"
 
-	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -61,6 +61,6 @@ func (r *PeerReconciler) Reconcile(ctx context.Context, _ ctrl.Request) (ctrl.Re
 // SetupWithManager sets up the controller with the Manager.
 func (r *PeerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&kubewgv1alpha1.Peer{}).
+		For(&kubewgv1.Peer{}).
 		Complete(r)
 }

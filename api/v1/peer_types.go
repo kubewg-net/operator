@@ -19,7 +19,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 The source code is available at <https://github.com/USA-RedDragon/kubewg>
 */
 
-package v1alpha1
+package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -62,6 +62,9 @@ type Peer struct {
 
 //+kubebuilder:object:root=true
 
+// +kubebuilder:printcolumn:name="Network",type=string,JSONPath=`.spec.network.name`
+// +kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 // PeerList contains a list of Peer
 type PeerList struct {
 	metav1.TypeMeta `json:",inline"`

@@ -27,7 +27,7 @@ import (
 	"runtime"
 	"testing"
 
-	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -74,7 +74,7 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	Expect(cfg).NotTo(BeNil())
 
-	err = kubewgv1alpha1.AddToScheme(scheme.Scheme)
+	err = kubewgv1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme

@@ -24,7 +24,7 @@ package controller_test
 import (
 	"context"
 
-	kubewgv1alpha1 "github.com/USA-RedDragon/kubewg/api/v1alpha1"
+	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
 	"github.com/USA-RedDragon/kubewg/internal/controller"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
@@ -44,13 +44,13 @@ var _ = Describe("Network Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		network := &kubewgv1alpha1.Network{}
+		network := &kubewgv1.Network{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Network")
 			err := k8sClient.Get(ctx, typeNamespacedName, network)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &kubewgv1alpha1.Network{
+				resource := &kubewgv1.Network{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -63,7 +63,7 @@ var _ = Describe("Network Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &kubewgv1alpha1.Network{}
+			resource := &kubewgv1.Network{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

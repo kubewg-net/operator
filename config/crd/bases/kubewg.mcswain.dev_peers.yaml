@@ -14,7 +14,7 @@ spec:
     singular: peer
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - name: v1
     schema:
       openAPIV3Schema:
         description: Peer is the Schema for the peers API
@@ -60,6 +60,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -79,6 +84,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -106,6 +116,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -125,6 +140,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer

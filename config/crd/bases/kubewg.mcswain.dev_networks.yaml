@@ -14,7 +14,17 @@ spec:
     singular: network
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - jsonPath: .spec.router[?(@.replicas > 0)]
+      name: Routed
+      type: boolean
+    - jsonPath: .spec.firewall.enabled
+      name: Firewalled
+      type: boolean
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: Network is the Schema for the networks API
@@ -60,6 +70,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -79,6 +94,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -106,6 +126,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -125,6 +150,11 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                enum:
+                                - UDP
+                                - TCP
+                                - ICMP
+                                - ALL
                                 type: string
                               startPort:
                                 type: integer
@@ -180,14 +210,25 @@ spec:
                           credentials
                         properties:
                           peerPublicKey:
+                            description: PeerPublicKey is the 44-character public
+                              key for the peer in base64 format
+                            maxLength: 44
+                            minLength: 44
                             type: string
                           preSharedKey:
+                            description: PreSharedKey is the optional pre-shared key
+                              for the Wireguard connection
                             type: string
                           privateKey:
+                            description: PrivateKey is the 44-character private key
+                              for the Wireguard client in base64 format
+                            maxLength: 44
+                            minLength: 44
                             type: string
                           secret:
-                            description: NameSelectorSpec defines a name selector
-                              for a resource
+                            description: Secret is the name of the secret containing
+                              the Wireguard credentials in the keys "privateKey",
+                              "peerPublicKey", and "preSharedKey"
                             properties:
                               name:
                                 type: string
@@ -216,13 +257,24 @@ spec:
                   INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
                   Important: Run "make" to regenerate code after modifying this file
                 type: boolean
+              replicas:
+                format: int32
+                type: integer
+              selector:
+                type: string
               status:
                 type: integer
             required:
             - ready
+            - replicas
+            - selector
             type: object
         type: object
     served: true
     storage: true
     subresources:
+      scale:
+        labelSelectorPath: .status.selector
+        specReplicasPath: .spec.router.replicas
+        statusReplicasPath: .status.replicas
       status: {}

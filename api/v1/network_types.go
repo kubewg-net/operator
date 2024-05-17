@@ -19,7 +19,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 The source code is available at <https://github.com/USA-RedDragon/kubewg>
 */
 
-package v1alpha1
+package v1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -41,9 +41,11 @@ type NetworkSpec struct {
 type NetworkStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Ready  bool   `json:"ready"`
-	ID     string `json:"id,omitempty"`
-	Status uint8  `json:"status,omitempty"`
+	Ready    bool   `json:"ready"`
+	ID       string `json:"id,omitempty"`
+	Status   uint8  `json:"status,omitempty"`
+	Replicas int32  `json:"replicas"`
+	Selector string `json:"selector"`
 }
 
 // RouterSpec defines the desired state of a router container
@@ -59,12 +61,25 @@ type ExternalVPNSpec struct {
 	Credentials WireguardCredentialsSpec `json:"credentials"`
 }
 
+// +kubebuilder:validation:MinLength=44
+// +kubebuilder:validation:MaxLength=44
+// WireguardKey is a 44-character base64-encoded Wireguard key
+type WireguardKey string
+
 // WireguardCredentialsSpec defines a set of Wireguard credentials
 type WireguardCredentialsSpec struct {
-	PrivateKey    string           `json:"privateKey,omitempty"`
-	PeerPublicKey string           `json:"peerPublicKey,omitempty"`
-	PreSharedKey  string           `json:"preSharedKey,omitempty"`
-	Secret        NameSelectorSpec `json:"secret,omitempty"`
+
+	// PrivateKey is the 44-character private key for the Wireguard client in base64 format
+	PrivateKey WireguardKey `json:"privateKey,omitempty"`
+
+	// PeerPublicKey is the 44-character public key for the peer in base64 format
+	PeerPublicKey WireguardKey `json:"peerPublicKey,omitempty"`
+
+	// PreSharedKey is the optional pre-shared key for the Wireguard connection
+	PreSharedKey string `json:"preSharedKey,omitempty"`
+
+	// Secret is the name of the secret containing the Wireguard credentials in the keys "privateKey", "peerPublicKey", and "preSharedKey"
+	Secret NameSelectorSpec `json:"secret,omitempty"`
 }
 
 // WireguardConnectionSpec defines a Wireguard connection
@@ -77,6 +92,11 @@ type WireguardConnectionSpec struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
+// +kubebuilder:printcolumn:name="Routed",type=boolean,JSONPath=`.spec.router[?(@.replicas > 0)]`
+// +kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
+// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+// +kubebuilder:subresource:status
+// +kubebuilder:subresource:scale:specpath=.spec.router.replicas,statuspath=.status.replicas,selectorpath=.status.selector
 // Network is the Schema for the networks API
 type Network struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,9 +1,9 @@
-apiVersion: kubewg.mcswain.dev/v1alpha1
-kind: Peer
+apiVersion: kubewg.mcswain.dev/v1
+kind: Network
 metadata:
   labels:
     app.kubernetes.io/name: kubewg
     app.kubernetes.io/managed-by: kustomize
-  name: peer-sample
+  name: network-sample
 spec:
   # TODO(user): Add fields here
