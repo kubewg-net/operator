@@ -32,8 +32,20 @@ import (
 type NetworkSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Router   RouterSpec   `json:"router,omitempty"`
-	Init     InitSpec     `json:"init,omitempty"`
+
+	// Router is the optional configuration for the router container
+	// The router is responsible for routing traffic between the pods and/or the external VPN
+	//+optional
+	Router RouterSpec `json:"router,omitempty"`
+
+	// Init is the optional initial container configuration that is applied to all pods in the network
+	// Peers can override this configuration with their own initial container configuration
+	//+optional
+	Init InitSpec `json:"init,omitempty"`
+
+	// Firewall is the optional firewall configuration that is applied to all pods in the network
+	// Peers can override this configuration with their own firewall configuration
+	//+optional
 	Firewall FirewallSpec `json:"firewall,omitempty"`
 }
 
@@ -41,23 +53,52 @@ type NetworkSpec struct {
 type NetworkStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Ready    bool   `json:"ready"`
-	ID       string `json:"id,omitempty"`
-	Status   uint8  `json:"status,omitempty"`
-	Replicas int32  `json:"replicas"`
+
+	// Ready is a flag to indicate if the network is ready
+	Ready bool `json:"ready"`
+
+	// ID is the ID of the network
+	ID string `json:"id,omitempty"`
+
+	// Status is the status of the network
+	Status uint8 `json:"status,omitempty"`
+
+	// Replicas is the number of router replicas
+	Replicas int32 `json:"replicas"`
+
+	// Selector is the selector for scaling the router pods
 	Selector string `json:"selector"`
 }
 
 // RouterSpec defines the desired state of a router container
 type RouterSpec struct {
-	Replicas    uint32          `json:"replicas,omitempty"`
-	Image       string          `json:"image,omitempty"`
+	//+kubebuilder:default=0
+
+	// Replicas is the number of router replicas
+	// This defaults to 0, the same as disabling the router
+	//+optional
+	Replicas uint32 `json:"replicas,omitempty"`
+
+	//+kubebuilder:default="ghcr.io/usa-reddragon/wireguard:main"
+
+	// Image is the container image for the router
+	// This defaults to ghcr.io/usa-reddragon/wireguard:main
+	Image string `json:"image,omitempty"`
+
+	// ExternalVPN is the optional external VPN configuration
+	// If specified, the router will route traffic through the external VPN
+	// Paired with enabling the firewall, this can be used to create a VPN kill-switched
+	// connection to an external VPN provider from all pods in the network
+	//+optional
 	ExternalVPN ExternalVPNSpec `json:"externalVPN,omitempty"`
 }
 
 // ExternalVPNSpec defines the an external VPN connection
 type ExternalVPNSpec struct {
-	Connection  WireguardConnectionSpec  `json:"connection"`
+	// Connection is the Wireguard connection configuration
+	Connection WireguardConnectionSpec `json:"connection"`
+
+	// Credentials are the external VPN Wireguard credentials
 	Credentials WireguardCredentialsSpec `json:"credentials"`
 }
 
@@ -77,17 +118,27 @@ type WireguardCredentialsSpec struct {
 	PeerPublicKey WireguardKey `json:"peerPublicKey,omitempty"`
 
 	// PreSharedKey is the optional pre-shared key for the Wireguard connection
+	//+optional
 	PreSharedKey string `json:"preSharedKey,omitempty"`
 
 	// Secret is the name of the secret containing the Wireguard credentials in the keys "privateKey", "peerPublicKey", and "preSharedKey"
+	//+optional
 	Secret NameSelectorSpec `json:"secret,omitempty"`
 }
 
 // WireguardConnectionSpec defines a Wireguard connection
 type WireguardConnectionSpec struct {
-	Address string           `json:"address,omitempty"`
-	Port    uint16           `json:"port,omitempty"`
-	Secret  NameSelectorSpec `json:"secret,omitempty"`
+	// Address is the IP address or hostname of the Wireguard server
+	//+optional
+	Address string `json:"address,omitempty"`
+
+	// Port is the port of the Wireguard server
+	//+optional
+	Port uint16 `json:"port,omitempty"`
+
+	// Secret is the selector for the secret containing the Wireguard connection configuration in the keys "address" and "port"
+	//+optional
+	Secret NameSelectorSpec `json:"secret,omitempty"`
 }
 
 //+kubebuilder:object:root=true

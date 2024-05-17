@@ -33,19 +33,36 @@ type PeerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	Network  NameSelectorSpec     `json:"network"`
-	Pods     metav1.LabelSelector `json:"pods"`
-	Init     InitSpec             `json:"init,omitempty"`
-	Firewall FirewallSpec         `json:"firewall,omitempty"`
+	// Network is the selector for the network this peer is a part of
+	Network NameSelectorSpec `json:"network"`
+
+	// Pods is the selector for the pods that are peers in the network
+	Pods metav1.LabelSelector `json:"pods"`
+
+	// Init is the optional initial container configuration that is applied to the peer
+	// This overrides the network's initial container configuration
+	//+optional
+	Init InitSpec `json:"init,omitempty"`
+
+	// Firewall is the optional firewall configuration that is applied to the peer
+	// This overrides the network's firewall configuration
+	//+optional
+	Firewall FirewallSpec `json:"firewall,omitempty"`
 }
 
 // PeerStatus defines the observed state of Peer
 type PeerStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Ready  bool   `json:"ready"`
-	ID     string `json:"id,omitempty"`
-	Status uint8  `json:"status,omitempty"`
+
+	// Ready is a flag to indicate if the peer is ready
+	Ready bool `json:"ready"`
+
+	// ID is the ID of the peer
+	ID string `json:"id,omitempty"`
+
+	// Status is the status of the peer
+	Status uint8 `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true

@@ -50,27 +50,53 @@ spec:
             description: NetworkSpec defines the desired state of Network
             properties:
               firewall:
-                description: FirewallSpec defines the firewall configuration for a
-                  container
+                description: |-
+                  Firewall is the optional firewall configuration that is applied to all pods in the network
+                  Peers can override this configuration with their own firewall configuration
                 properties:
                   allowWorkloadNetworkChanges:
+                    description: |-
+                      AllowWorkloadNetworkChanges is a flag to allow pods that could potentially make changes to the workload network
+                      This is disabled by default and will reject any containers with the NET_RAW or NET_ADMIN capabilities as
+                      these capabilities can be used to make changes to the network. Enabling this flag will allow containers with
+                      these capabilities to be deployed.
                     type: boolean
                   egress:
+                    description: |-
+                      Egress is a list of egress firewall rules
+                      These rules are applied to traffic leaving the container
+                      The default egress rules are to block all RFC1918 IPs and allow all other traffic
                     items:
                       description: FirewallRulesSpec defines a list of firewall rules
                       properties:
                         allow:
+                          description: Allow is a list of firewall rules to allow
+                            traffic
                           items:
                             description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
+                                description: |-
+                                  CIDR is the CIDR block of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               endPort:
+                                description: |-
+                                  EndPort is the end port for a range of ports
+                                  If not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                               ip:
+                                description: |-
+                                  IP is the IP address of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               protocol:
-                                description: Protocol defines a network protocol
+                                default: ALL
+                                description: |-
+                                  Protocol is the network protocol
+                                  If not specified, the default protocol of ALL is used
                                 enum:
                                 - UDP
                                 - TCP
@@ -78,24 +104,44 @@ spec:
                                 - ALL
                                 type: string
                               startPort:
+                                description: |-
+                                  StartPort is the start port for a range of ports
+                                  If the end port is not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                             required:
-                            - protocol
                             - startPort
                             type: object
                           type: array
                         block:
+                          description: Block is a list of firewall rules to block
+                            traffic
                           items:
                             description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
+                                description: |-
+                                  CIDR is the CIDR block of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               endPort:
+                                description: |-
+                                  EndPort is the end port for a range of ports
+                                  If not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                               ip:
+                                description: |-
+                                  IP is the IP address of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               protocol:
-                                description: Protocol defines a network protocol
+                                default: ALL
+                                description: |-
+                                  Protocol is the network protocol
+                                  If not specified, the default protocol of ALL is used
                                 enum:
                                 - UDP
                                 - TCP
@@ -103,32 +149,59 @@ spec:
                                 - ALL
                                 type: string
                               startPort:
+                                description: |-
+                                  StartPort is the start port for a range of ports
+                                  If the end port is not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                             required:
-                            - protocol
                             - startPort
                             type: object
                           type: array
                       type: object
                     type: array
                   enabled:
+                    description: |-
+                      Enabled is a flag to enable the firewall.
+                      The default firewall configuration is to block all non-VPN traffic, aka a kill switch.
                     type: boolean
                   ingress:
+                    description: |-
+                      Ingress is a list of ingress firewall rules
+                      These rules are applied to traffic entering the container
+                      The default ingress rules are to block all traffic
                     items:
                       description: FirewallRulesSpec defines a list of firewall rules
                       properties:
                         allow:
+                          description: Allow is a list of firewall rules to allow
+                            traffic
                           items:
                             description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
+                                description: |-
+                                  CIDR is the CIDR block of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               endPort:
+                                description: |-
+                                  EndPort is the end port for a range of ports
+                                  If not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                               ip:
+                                description: |-
+                                  IP is the IP address of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               protocol:
-                                description: Protocol defines a network protocol
+                                default: ALL
+                                description: |-
+                                  Protocol is the network protocol
+                                  If not specified, the default protocol of ALL is used
                                 enum:
                                 - UDP
                                 - TCP
@@ -136,24 +209,44 @@ spec:
                                 - ALL
                                 type: string
                               startPort:
+                                description: |-
+                                  StartPort is the start port for a range of ports
+                                  If the end port is not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                             required:
-                            - protocol
                             - startPort
                             type: object
                           type: array
                         block:
+                          description: Block is a list of firewall rules to block
+                            traffic
                           items:
                             description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
+                                description: |-
+                                  CIDR is the CIDR block of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               endPort:
+                                description: |-
+                                  EndPort is the end port for a range of ports
+                                  If not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                               ip:
+                                description: |-
+                                  IP is the IP address of the subject
+                                  Either an IP or CIDR must be specified
                                 type: string
                               protocol:
-                                description: Protocol defines a network protocol
+                                default: ALL
+                                description: |-
+                                  Protocol is the network protocol
+                                  If not specified, the default protocol of ALL is used
                                 enum:
                                 - UDP
                                 - TCP
@@ -161,9 +254,13 @@ spec:
                                 - ALL
                                 type: string
                               startPort:
+                                description: |-
+                                  StartPort is the start port for a range of ports
+                                  If the end port is not specified, the default end port is the same as the start port
+                                maximum: 65535
+                                minimum: 1024
                                 type: integer
                             required:
-                            - protocol
                             - startPort
                             type: object
                           type: array
@@ -171,47 +268,67 @@ spec:
                     type: array
                 type: object
               init:
-                description: InitSpec defines the initial container configuration
+                description: |-
+                  Init is the optional initial container configuration that is applied to all pods in the network
+                  Peers can override this configuration with their own initial container configuration
                 properties:
                   dns:
-                    description: DNSSpec defines the DNS configuration for a container
+                    description: DNS is the optional DNS configuration
                     properties:
                       nameservers:
+                        default:
+                        - 1.1.1.1
+                        - 1.0.0.1
+                        description: |-
+                          Nameservers is a list of DNS nameservers
+                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
                         items:
                           type: string
                         type: array
                     type: object
                   image:
+                    default: ghcr.io/usa-reddragon/wireguard:main
+                    description: |-
+                      Image is the container image
+                      If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
                     type: string
                 type: object
               router:
                 description: |-
-                  INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file
+                  Router is the optional configuration for the router container
+                  The router is responsible for routing traffic between the pods and/or the external VPN
                 properties:
                   externalVPN:
-                    description: ExternalVPNSpec defines the an external VPN connection
+                    description: |-
+                      ExternalVPN is the optional external VPN configuration
+                      If specified, the router will route traffic through the external VPN
+                      Paired with enabling the firewall, this can be used to create a VPN kill-switched
+                      connection to an external VPN provider from all pods in the network
                     properties:
                       connection:
-                        description: WireguardConnectionSpec defines a Wireguard connection
+                        description: Connection is the Wireguard connection configuration
                         properties:
                           address:
+                            description: Address is the IP address or hostname of
+                              the Wireguard server
                             type: string
                           port:
+                            description: Port is the port of the Wireguard server
                             type: integer
                           secret:
-                            description: NameSelectorSpec defines a name selector
-                              for a resource
+                            description: Secret is the selector for the secret containing
+                              the Wireguard connection configuration in the keys "address"
+                              and "port"
                             properties:
                               name:
+                                description: Name is the name of the resource
                                 type: string
                             required:
                             - name
                             type: object
                         type: object
                       credentials:
-                        description: WireguardCredentialsSpec defines a set of Wireguard
-                          credentials
+                        description: Credentials are the external VPN Wireguard credentials
                         properties:
                           peerPublicKey:
                             description: PeerPublicKey is the 44-character public
@@ -235,6 +352,7 @@ spec:
                               "peerPublicKey", and "preSharedKey"
                             properties:
                               name:
+                                description: Name is the name of the resource
                                 type: string
                             required:
                             - name
@@ -245,8 +363,16 @@ spec:
                     - credentials
                     type: object
                   image:
+                    default: ghcr.io/usa-reddragon/wireguard:main
+                    description: |-
+                      Image is the container image for the router
+                      This defaults to ghcr.io/usa-reddragon/wireguard:main
                     type: string
                   replicas:
+                    default: 0
+                    description: |-
+                      Replicas is the number of router replicas
+                      This defaults to 0, the same as disabling the router
                     format: int32
                     type: integer
                 type: object
@@ -255,18 +381,20 @@ spec:
             description: NetworkStatus defines the observed state of Network
             properties:
               id:
+                description: ID is the ID of the network
                 type: string
               ready:
-                description: |-
-                  INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-                  Important: Run "make" to regenerate code after modifying this file
+                description: Ready is a flag to indicate if the network is ready
                 type: boolean
               replicas:
+                description: Replicas is the number of router replicas
                 format: int32
                 type: integer
               selector:
+                description: Selector is the selector for scaling the router pods
                 type: string
               status:
+                description: Status is the status of the network
                 type: integer
             required:
             - ready
