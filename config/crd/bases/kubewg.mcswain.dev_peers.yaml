@@ -40,14 +40,18 @@ spec:
             description: PeerSpec defines the desired state of Peer
             properties:
               firewall:
+                description: FirewallSpec defines the firewall configuration for a
+                  container
                 properties:
                   allowWorkloadNetworkChanges:
                     type: boolean
                   egress:
                     items:
+                      description: FirewallRulesSpec defines a list of firewall rules
                       properties:
                         allow:
                           items:
+                            description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
                                 type: string
@@ -66,6 +70,7 @@ spec:
                           type: array
                         block:
                           items:
+                            description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
                                 type: string
@@ -88,9 +93,11 @@ spec:
                     type: boolean
                   ingress:
                     items:
+                      description: FirewallRulesSpec defines a list of firewall rules
                       properties:
                         allow:
                           items:
+                            description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
                                 type: string
@@ -109,6 +116,7 @@ spec:
                           type: array
                         block:
                           items:
+                            description: FirewallRuleSpec defines a firewall rule
                             properties:
                               cidr:
                                 type: string
@@ -129,8 +137,10 @@ spec:
                     type: array
                 type: object
               init:
+                description: InitSpec defines the initial container configuration
                 properties:
                   dns:
+                    description: DNSSpec defines the DNS configuration for a container
                     properties:
                       nameservers:
                         items:
@@ -141,6 +151,7 @@ spec:
                     type: string
                 type: object
               network:
+                description: NameSelectorSpec defines a name selector for a resource
                 properties:
                   name:
                     type: string

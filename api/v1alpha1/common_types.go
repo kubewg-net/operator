@@ -21,19 +21,23 @@ The source code is available at <https://github.com/USA-RedDragon/kubewg>
 
 package v1alpha1
 
+// NameSelectorSpec defines a name selector for a resource
 type NameSelectorSpec struct {
 	Name string `json:"name"`
 }
 
+// DNSSpec defines the DNS configuration for a container
 type DNSSpec struct {
 	Nameservers []string `json:"nameservers,omitempty"`
 }
 
+// InitSpec defines the initial container configuration
 type InitSpec struct {
 	Image string  `json:"image,omitempty"`
 	DNS   DNSSpec `json:"dns,omitempty"`
 }
 
+// FirewallSpec defines the firewall configuration for a container
 type FirewallSpec struct {
 	Enabled                     bool                `json:"enabled,omitempty"`
 	AllowWorkloadNetworkChanges bool                `json:"allowWorkloadNetworkChanges,omitempty"`
@@ -41,6 +45,7 @@ type FirewallSpec struct {
 	Ingress                     []FirewallRulesSpec `json:"ingress,omitempty"`
 }
 
+// FirewallRuleSpec defines a firewall rule
 type FirewallRuleSpec struct {
 	Protocol  string `json:"protocol"`
 	StartPort uint16 `json:"startPort"`
@@ -49,6 +54,7 @@ type FirewallRuleSpec struct {
 	CIDR      string `json:"cidr,omitempty"`
 }
 
+// FirewallRulesSpec defines a list of firewall rules
 type FirewallRulesSpec struct {
 	Allow []FirewallRuleSpec `json:"allow,omitempty"`
 	Block []FirewallRuleSpec `json:"block,omitempty"`

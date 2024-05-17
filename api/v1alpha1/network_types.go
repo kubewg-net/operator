@@ -46,17 +46,20 @@ type NetworkStatus struct {
 	Status uint8  `json:"status,omitempty"`
 }
 
+// RouterSpec defines the desired state of a router container
 type RouterSpec struct {
 	Replicas    uint32          `json:"replicas,omitempty"`
 	Image       string          `json:"image,omitempty"`
 	ExternalVPN ExternalVPNSpec `json:"externalVPN,omitempty"`
 }
 
+// ExternalVPNSpec defines the an external VPN connection
 type ExternalVPNSpec struct {
 	Connection  WireguardConnectionSpec  `json:"connection"`
 	Credentials WireguardCredentialsSpec `json:"credentials"`
 }
 
+// WireguardCredentialsSpec defines a set of Wireguard credentials
 type WireguardCredentialsSpec struct {
 	PrivateKey    string           `json:"privateKey,omitempty"`
 	PeerPublicKey string           `json:"peerPublicKey,omitempty"`
@@ -64,6 +67,7 @@ type WireguardCredentialsSpec struct {
 	Secret        NameSelectorSpec `json:"secret,omitempty"`
 }
 
+// WireguardConnectionSpec defines a Wireguard connection
 type WireguardConnectionSpec struct {
 	Address string           `json:"address,omitempty"`
 	Port    uint16           `json:"port,omitempty"`
