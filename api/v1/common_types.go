@@ -53,10 +53,12 @@ type InitSpec struct {
 
 // FirewallSpec defines the firewall configuration for a container
 type FirewallSpec struct {
+	//+kubebuilder:default=true
+
 	// Enabled is a flag to enable the firewall.
 	// The default firewall configuration is to block all non-VPN traffic, aka a kill switch.
 	// +optional
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// AllowWorkloadNetworkChanges is a flag to allow pods that could potentially make changes to the workload network
 	// This is disabled by default and will reject any containers with the NET_RAW or NET_ADMIN capabilities as

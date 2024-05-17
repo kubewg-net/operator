@@ -50,6 +50,8 @@ spec:
             description: NetworkSpec defines the desired state of Network
             properties:
               firewall:
+                default:
+                  enabled: true
                 description: |-
                   Firewall is the optional firewall configuration that is applied to all pods in the network
                   Peers can override this configuration with their own firewall configuration
@@ -162,6 +164,7 @@ spec:
                       type: object
                     type: array
                   enabled:
+                    default: true
                     description: |-
                       Enabled is a flag to enable the firewall.
                       The default firewall configuration is to block all non-VPN traffic, aka a kill switch.

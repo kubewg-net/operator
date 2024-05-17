@@ -152,6 +152,7 @@ spec:
                       type: object
                     type: array
                   enabled:
+                    default: true
                     description: |-
                       Enabled is a flag to enable the firewall.
                       The default firewall configuration is to block all non-VPN traffic, aka a kill switch.

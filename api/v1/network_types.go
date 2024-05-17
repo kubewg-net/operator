@@ -41,7 +41,9 @@ type NetworkSpec struct {
 	// Init is the optional initial container configuration that is applied to all pods in the network
 	// Peers can override this configuration with their own initial container configuration
 	//+optional
-	Init InitSpec `json:"init,omitempty"`
+	Init InitSpec `json:"init"`
+
+	//+kubebuilder:default={enabled: true}
 
 	// Firewall is the optional firewall configuration that is applied to all pods in the network
 	// Peers can override this configuration with their own firewall configuration
