@@ -26,7 +26,7 @@ type NameSelectorSpec struct {
 }
 
 type DNSSpec struct {
-	Nameservers []string `json:"nameservers"`
+	Nameservers []string `json:"nameservers,omitempty"`
 }
 
 type InitSpec struct {
