@@ -61,10 +61,10 @@ type Peer struct {
 }
 
 //+kubebuilder:object:root=true
-
 // +kubebuilder:printcolumn:name="Network",type=string,JSONPath=`.spec.network.name`
 // +kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
+
 // PeerList contains a list of Peer
 type PeerList struct {
 	metav1.TypeMeta `json:",inline"`

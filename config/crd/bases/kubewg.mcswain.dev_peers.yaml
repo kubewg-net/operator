@@ -60,6 +60,7 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                description: Protocol defines a network protocol
                                 enum:
                                 - UDP
                                 - TCP
@@ -84,6 +85,7 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                description: Protocol defines a network protocol
                                 enum:
                                 - UDP
                                 - TCP
@@ -116,6 +118,7 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                description: Protocol defines a network protocol
                                 enum:
                                 - UDP
                                 - TCP
@@ -140,6 +143,7 @@ spec:
                               ip:
                                 type: string
                               protocol:
+                                description: Protocol defines a network protocol
                                 enum:
                                 - UDP
                                 - TCP

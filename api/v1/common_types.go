@@ -47,6 +47,8 @@ type FirewallSpec struct {
 }
 
 // +kubebuilder:validation:Enum=UDP;TCP;ICMP;ALL
+
+// Protocol defines a network protocol
 type Protocol string
 
 // FirewallRuleSpec defines a firewall rule
