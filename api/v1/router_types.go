@@ -49,6 +49,10 @@ type RouterSpec struct {
 	// This defaults to ghcr.io/usa-reddragon/wireguard:main
 	Image string `json:"image,omitempty"`
 
+	// Init is the optional initial container configuration that is applied to this router
+	//+optional
+	Init InitSpec `json:"init"`
+
 	// ExternalVPN is the optional external VPN configuration
 	// If specified, the router will route traffic through the external VPN
 	// Paired with enabling the firewall, this can be used to create a VPN kill-switched

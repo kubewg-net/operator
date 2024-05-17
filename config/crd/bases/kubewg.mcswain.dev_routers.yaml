@@ -336,6 +336,31 @@ spec:
                   Image is the container image for the router
                   This defaults to ghcr.io/usa-reddragon/wireguard:main
                 type: string
+              init:
+                description: Init is the optional initial container configuration
+                  that is applied to this router
+                properties:
+                  dns:
+                    description: DNS is the optional DNS configuration
+                    properties:
+                      nameservers:
+                        default:
+                        - 1.1.1.1
+                        - 1.0.0.1
+                        description: |-
+                          Nameservers is a list of DNS nameservers
+                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
+                        items:
+                          type: string
+                        type: array
+                    type: object
+                  image:
+                    default: ghcr.io/usa-reddragon/wireguard:main
+                    description: |-
+                      Image is the container image
+                      If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
+                    type: string
+                type: object
               network:
                 description: Network is the selector for the network this peer is
                   a part of

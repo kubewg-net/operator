@@ -15,9 +15,6 @@ spec:
   scope: Cluster
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.firewall.enabled
-      name: Firewall
-      type: boolean
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
@@ -45,33 +42,6 @@ spec:
             type: object
           spec:
             description: NetworkSpec defines the desired state of Network
-            properties:
-              init:
-                description: |-
-                  Init is the optional initial container configuration that is applied to all pods in the network
-                  Peers can override this configuration with their own initial container configuration
-                properties:
-                  dns:
-                    description: DNS is the optional DNS configuration
-                    properties:
-                      nameservers:
-                        default:
-                        - 1.1.1.1
-                        - 1.0.0.1
-                        description: |-
-                          Nameservers is a list of DNS nameservers
-                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
-                        items:
-                          type: string
-                        type: array
-                    type: object
-                  image:
-                    default: ghcr.io/usa-reddragon/wireguard:main
-                    description: |-
-                      Image is the container image
-                      If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
-                    type: string
-                type: object
             type: object
           status:
             description: NetworkStatus defines the observed state of Network

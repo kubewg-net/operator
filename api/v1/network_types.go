@@ -32,11 +32,6 @@ import (
 type NetworkSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// Init is the optional initial container configuration that is applied to all pods in the network
-	// Peers can override this configuration with their own initial container configuration
-	//+optional
-	Init InitSpec `json:"init"`
 }
 
 // NetworkStatus defines the observed state of Network
@@ -56,7 +51,6 @@ type NetworkStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:resource:scope=Cluster
-//+kubebuilder:printcolumn:name="Firewall",type=boolean,JSONPath=`.spec.firewall.enabled`
 //+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 //+kubebuilder:subresource:status
 
