@@ -67,7 +67,8 @@ var _ = Describe("controller", Ordered, func() {
 			var projectimage = "example.com/kubewg:v0.0.1"
 
 			By("building the manager(Operator) image")
-			cmd := exec.Command("sh", "-c", "CGO_ENABLED=0 go build -o kubewg ./cmd/main.go && docker build -t "+projectimage+" .")
+			cmd := exec.Command("sh", "-c",
+				"CGO_ENABLED=0 go build -o kubewg ./cmd/main.go && docker build -t "+projectimage+" .")
 			_, err = utils.Run(cmd)
 			ExpectWithOffset(1, err).NotTo(HaveOccurred())
 
