@@ -144,6 +144,7 @@ type WireguardConnectionSpec struct {
 }
 
 //+kubebuilder:object:root=true
+//+kubebuilder:resource:scope=Cluster
 //+kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="Routed",type=boolean,JSONPath=`.spec.router[?(@.replicas > 0)]`
 // +kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
