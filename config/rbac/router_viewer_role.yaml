@@ -1,0 +1,23 @@
+# permissions for end users to view routers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kubewg
+    app.kubernetes.io/managed-by: kustomize
+  name: router-viewer-role
+rules:
+- apiGroups:
+  - kubewg.mcswain.dev
+  resources:
+  - routers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - kubewg.mcswain.dev
+  resources:
+  - routers/status
+  verbs:
+  - get

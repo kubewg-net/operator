@@ -4,27 +4,27 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: networks.kubewg.mcswain.dev
+  name: routers.kubewg.mcswain.dev
 spec:
   group: kubewg.mcswain.dev
   names:
-    kind: Network
-    listKind: NetworkList
-    plural: networks
-    singular: network
-  scope: Cluster
+    kind: Router
+    listKind: RouterList
+    plural: routers
+    singular: router
+  scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - jsonPath: .spec.firewall.enabled
-      name: Firewall
-      type: boolean
+    - jsonPath: .spec.network.name
+      name: Network
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
       type: date
     name: v1
     schema:
       openAPIV3Schema:
-        description: Network is the Schema for the networks API
+        description: Router is the Schema for the routers API
         properties:
           apiVersion:
             description: |-
@@ -44,14 +44,76 @@ spec:
           metadata:
             type: object
           spec:
-            description: NetworkSpec defines the desired state of Network
+            description: RouterSpec defines the desired state of Router
             properties:
-              firewall:
-                default:
-                  enabled: true
+              externalVPN:
                 description: |-
-                  Firewall is the optional firewall configuration that is applied to all pods in the network
-                  Peers can override this configuration with their own firewall configuration
+                  ExternalVPN is the optional external VPN configuration
+                  If specified, the router will route traffic through the external VPN
+                  Paired with enabling the firewall, this can be used to create a VPN kill-switched
+                  connection to an external VPN provider from all pods in the network
+                properties:
+                  connection:
+                    description: Connection is the Wireguard connection configuration
+                    properties:
+                      address:
+                        description: Address is the IP address or hostname of the
+                          Wireguard server
+                        type: string
+                      port:
+                        description: Port is the port of the Wireguard server
+                        type: integer
+                      secret:
+                        description: Secret is the selector for the secret containing
+                          the Wireguard connection configuration in the keys "address"
+                          and "port"
+                        properties:
+                          name:
+                            description: Name is the name of the resource
+                            type: string
+                        required:
+                        - name
+                        type: object
+                    type: object
+                  credentials:
+                    description: Credentials are the external VPN Wireguard credentials
+                    properties:
+                      peerPublicKey:
+                        description: PeerPublicKey is the 44-character public key
+                          for the peer in base64 format
+                        maxLength: 44
+                        minLength: 44
+                        type: string
+                      preSharedKey:
+                        description: PreSharedKey is the optional pre-shared key for
+                          the Wireguard connection
+                        type: string
+                      privateKey:
+                        description: PrivateKey is the 44-character private key for
+                          the Wireguard client in base64 format
+                        maxLength: 44
+                        minLength: 44
+                        type: string
+                      secret:
+                        description: Secret is the name of the secret containing the
+                          Wireguard credentials in the keys "privateKey", "peerPublicKey",
+                          and "preSharedKey"
+                        properties:
+                          name:
+                            description: Name is the name of the resource
+                            type: string
+                        required:
+                        - name
+                        type: object
+                    type: object
+                required:
+                - connection
+                - credentials
+                type: object
+              firewall:
+                description: |-
+                  Firewall is the optional firewall configuration that is applied to the peer
+                  This overrides the network's firewall configuration
                 properties:
                   allowWorkloadNetworkChanges:
                     description: |-
@@ -267,35 +329,34 @@ spec:
                       type: object
                     type: array
                 type: object
-              init:
+              image:
+                default: ghcr.io/usa-reddragon/wireguard:main
                 description: |-
-                  Init is the optional initial container configuration that is applied to all pods in the network
-                  Peers can override this configuration with their own initial container configuration
+                  Image is the container image for the router
+                  This defaults to ghcr.io/usa-reddragon/wireguard:main
+                type: string
+              network:
+                description: Network is the selector for the network this peer is
+                  a part of
                 properties:
-                  dns:
-                    description: DNS is the optional DNS configuration
-                    properties:
-                      nameservers:
-                        default:
-                        - 1.1.1.1
-                        - 1.0.0.1
-                        description: |-
-                          Nameservers is a list of DNS nameservers
-                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
-                        items:
-                          type: string
-                        type: array
-                    type: object
-                  image:
-                    default: ghcr.io/usa-reddragon/wireguard:main
-                    description: |-
-                      Image is the container image
-                      If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
+                  name:
+                    description: Name is the name of the resource
                     type: string
+                required:
+                - name
                 type: object
+              replicas:
+                default: 0
+                description: |-
+                  Replicas is the number of router replicas
+                  This defaults to 0, the same as disabling the router
+                format: int32
+                type: integer
+            required:
+            - network
             type: object
           status:
-            description: NetworkStatus defines the observed state of Network
+            description: RouterStatus defines the observed state of Router
             properties:
               id:
                 description: ID is the ID of the network
@@ -303,14 +364,27 @@ spec:
               ready:
                 description: Ready is a flag to indicate if the network is ready
                 type: boolean
+              replicas:
+                description: Replicas is the number of router replicas
+                format: int32
+                type: integer
+              selector:
+                description: Selector is the selector for scaling the router pods
+                type: string
               status:
                 description: Status is the status of the network
                 type: integer
             required:
             - ready
+            - replicas
+            - selector
             type: object
         type: object
     served: true
     storage: true
     subresources:
+      scale:
+        labelSelectorPath: .status.selector
+        specReplicasPath: .spec.replicas
+        statusReplicasPath: .status.replicas
       status: {}

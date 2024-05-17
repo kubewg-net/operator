@@ -1,13 +1,11 @@
 apiVersion: kubewg.mcswain.dev/v1
-kind: Network
+kind: Router
 metadata:
   labels:
     app.kubernetes.io/name: kubewg
     app.kubernetes.io/managed-by: kustomize
-  name: network-sample
+  name: router-sample
 spec:
-  init:
-    dns:
-      nameservers:
-      - 1.1.1.1
-      - 8.8.8.8
+  network:
+    name: network-sample
+  replicas: 1

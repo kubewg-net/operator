@@ -4,6 +4,7 @@
 resources:
 - bases/kubewg.mcswain.dev_networks.yaml
 - bases/kubewg.mcswain.dev_peers.yaml
+- bases/kubewg.mcswain.dev_routers.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patches:
@@ -15,6 +16,7 @@ patches:
 # patches here are for enabling the CA injection for each CRD
 #- path: patches/cainjection_in_networks.yaml
 #- path: patches/cainjection_in_peers.yaml
+#- path: patches/cainjection_in_routers.yaml
 #+kubebuilder:scaffold:crdkustomizecainjectionpatch
 
 # [WEBHOOK] To enable webhook, uncomment the following section

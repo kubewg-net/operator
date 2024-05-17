@@ -2,4 +2,5 @@
 resources:
 - kubewg_v1_peer.yaml
 - kubewg_v1_network.yaml
+- kubewg_v1_router.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

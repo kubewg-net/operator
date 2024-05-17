@@ -56,3 +56,29 @@ rules:
   - get
   - patch
   - update
+- apiGroups:
+  - kubewg.mcswain.dev
+  resources:
+  - routers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - kubewg.mcswain.dev
+  resources:
+  - routers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - kubewg.mcswain.dev
+  resources:
+  - routers/status
+  verbs:
+  - get
+  - patch
+  - update
