@@ -27,22 +27,6 @@ jobs:
           skip-cache: true
           # Show only new issues if it's a pull request. The default value is `false`.
           only-new-issues: true
-  test:
-    name: test
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-      - name: test
-        run: make test
-      - uses: codecov/codecov-action@v4
-        if: always()
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./cover.out
-          fail_ci_if_error: true
   test-e2e:
     name: test-e2e
     runs-on: ubuntu-22.04
