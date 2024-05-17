@@ -32,15 +32,39 @@ import (
 type NetworkSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Network. Edit network_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Router   RouterSpec   `json:"router,omitempty"`
+	Init     InitSpec     `json:"init,omitempty"`
+	Firewall FirewallSpec `json:"firewall,omitempty"`
 }
 
 // NetworkStatus defines the observed state of Network
 type NetworkStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+}
+
+type RouterSpec struct {
+	Replicas    uint32          `json:"replicas,omitempty"`
+	Image       string          `json:"image,omitempty"`
+	ExternalVPN ExternalVPNSpec `json:"externalVPN,omitempty"`
+}
+
+type ExternalVPNSpec struct {
+	Connection  WireguardConnectionSpec  `json:"connection"`
+	Credentials WireguardCredentialsSpec `json:"credentials"`
+}
+
+type WireguardCredentialsSpec struct {
+	PrivateKey    string           `json:"privateKey,omitempty"`
+	PeerPublicKey string           `json:"peerPublicKey,omitempty"`
+	PreSharedKey  string           `json:"preSharedKey,omitempty"`
+	Secret        NameSelectorSpec `json:"secret,omitempty"`
+}
+
+type WireguardConnectionSpec struct {
+	Address string           `json:"address,omitempty"`
+	Port    uint16           `json:"port,omitempty"`
+	Secret  NameSelectorSpec `json:"secret,omitempty"`
 }
 
 //+kubebuilder:object:root=true

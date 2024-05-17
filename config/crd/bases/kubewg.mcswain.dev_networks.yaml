@@ -39,10 +39,156 @@ spec:
           spec:
             description: NetworkSpec defines the desired state of Network
             properties:
-              foo:
-                description: Foo is an example field of Network. Edit network_types.go
-                  to remove/update
-                type: string
+              firewall:
+                properties:
+                  allowWorkloadNetworkChanges:
+                    type: boolean
+                  egress:
+                    items:
+                      properties:
+                        allow:
+                          items:
+                            properties:
+                              cidr:
+                                type: string
+                              endPort:
+                                type: integer
+                              ip:
+                                type: string
+                              protocol:
+                                type: string
+                              startPort:
+                                type: integer
+                            required:
+                            - protocol
+                            - startPort
+                            type: object
+                          type: array
+                        block:
+                          items:
+                            properties:
+                              cidr:
+                                type: string
+                              endPort:
+                                type: integer
+                              ip:
+                                type: string
+                              protocol:
+                                type: string
+                              startPort:
+                                type: integer
+                            required:
+                            - protocol
+                            - startPort
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  enabled:
+                    type: boolean
+                  ingress:
+                    items:
+                      properties:
+                        allow:
+                          items:
+                            properties:
+                              cidr:
+                                type: string
+                              endPort:
+                                type: integer
+                              ip:
+                                type: string
+                              protocol:
+                                type: string
+                              startPort:
+                                type: integer
+                            required:
+                            - protocol
+                            - startPort
+                            type: object
+                          type: array
+                        block:
+                          items:
+                            properties:
+                              cidr:
+                                type: string
+                              endPort:
+                                type: integer
+                              ip:
+                                type: string
+                              protocol:
+                                type: string
+                              startPort:
+                                type: integer
+                            required:
+                            - protocol
+                            - startPort
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              init:
+                properties:
+                  dns:
+                    properties:
+                      nameservers:
+                        items:
+                          type: string
+                        type: array
+                    required:
+                    - nameservers
+                    type: object
+                  image:
+                    type: string
+                type: object
+              router:
+                description: |-
+                  INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+                  Important: Run "make" to regenerate code after modifying this file
+                properties:
+                  externalVPN:
+                    properties:
+                      connection:
+                        properties:
+                          address:
+                            type: string
+                          port:
+                            type: integer
+                          secret:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        type: object
+                      credentials:
+                        properties:
+                          peerPublicKey:
+                            type: string
+                          preSharedKey:
+                            type: string
+                          privateKey:
+                            type: string
+                          secret:
+                            properties:
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        type: object
+                    required:
+                    - connection
+                    - credentials
+                    type: object
+                  image:
+                    type: string
+                  replicas:
+                    format: int32
+                    type: integer
+                type: object
             type: object
           status:
             description: NetworkStatus defines the observed state of Network

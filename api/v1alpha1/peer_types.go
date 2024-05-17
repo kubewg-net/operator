@@ -33,8 +33,10 @@ type PeerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Peer. Edit peer_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Network  NameSelectorSpec     `json:"network"`
+	Pods     metav1.LabelSelector `json:"pods"`
+	Init     InitSpec             `json:"init,omitempty"`
+	Firewall FirewallSpec         `json:"firewall,omitempty"`
 }
 
 // PeerStatus defines the observed state of Peer
