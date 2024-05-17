@@ -41,6 +41,9 @@ type NetworkSpec struct {
 type NetworkStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Ready  bool   `json:"ready"`
+	ID     string `json:"id,omitempty"`
+	Status uint8  `json:"status,omitempty"`
 }
 
 type RouterSpec struct {

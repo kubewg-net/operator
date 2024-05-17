@@ -202,6 +202,18 @@ spec:
             type: object
           status:
             description: PeerStatus defines the observed state of Peer
+            properties:
+              id:
+                type: string
+              ready:
+                description: |-
+                  INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
+                  Important: Run "make" to regenerate code after modifying this file
+                type: boolean
+              status:
+                type: integer
+            required:
+            - ready
             type: object
         type: object
     served: true
