@@ -40,9 +40,10 @@ spec:
             description: PeerSpec defines the desired state of Peer
             properties:
               firewall:
-                description: |-
-                  Firewall is the optional firewall configuration that is applied to the peer
-                  This overrides the network's firewall configuration
+                default:
+                  enabled: true
+                description: Firewall is the optional firewall configuration that
+                  is applied to the peer
                 properties:
                   allowWorkloadNetworkChanges:
                     description: |-

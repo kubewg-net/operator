@@ -44,8 +44,9 @@ type PeerSpec struct {
 	//+optional
 	Init InitSpec `json:"init,omitempty"`
 
+	//+kubebuilder:default={enabled: true}
+
 	// Firewall is the optional firewall configuration that is applied to the peer
-	// This overrides the network's firewall configuration
 	//+optional
 	Firewall FirewallSpec `json:"firewall,omitempty"`
 }
