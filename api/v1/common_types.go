@@ -57,7 +57,7 @@ type FirewallSpec struct {
 
 	// Enabled is a flag to enable the firewall.
 	// The default firewall configuration is to block all non-VPN traffic, aka a kill switch.
-	// +optional
+	//+optional
 	Enabled bool `json:"enabled"`
 
 	// AllowWorkloadNetworkChanges is a flag to allow pods that could potentially make changes to the workload network

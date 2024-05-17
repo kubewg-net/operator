@@ -19,9 +19,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 The source code is available at <https://github.com/USA-RedDragon/kubewg>
 */
 
+//+kubebuilder:object:generate=true
+//+groupName=kubewg.mcswain.dev
+
 // Package v1 contains API Schema definitions for the kubewg v1 API group
-// +kubebuilder:object:generate=true
-// +groupName=kubewg.mcswain.dev
 package v1
 
 import (

@@ -104,8 +104,8 @@ type ExternalVPNSpec struct {
 	Credentials WireguardCredentialsSpec `json:"credentials"`
 }
 
-// +kubebuilder:validation:MinLength=44
-// +kubebuilder:validation:MaxLength=44
+//+kubebuilder:validation:MinLength=44
+//+kubebuilder:validation:MaxLength=44
 
 // WireguardKey is a 44-character base64-encoded Wireguard key
 type WireguardKey string
@@ -145,12 +145,11 @@ type WireguardConnectionSpec struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:resource:scope=Cluster
+//+kubebuilder:printcolumn:name="Routed",type=boolean,JSONPath=`.spec.router[?(@.replicas > 0)]`
+//+kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
+//+kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 //+kubebuilder:subresource:status
-// +kubebuilder:printcolumn:name="Routed",type=boolean,JSONPath=`.spec.router[?(@.replicas > 0)]`
-// +kubebuilder:printcolumn:name="Firewalled",type=boolean,JSONPath=`.spec.firewall.enabled`
-// +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
-// +kubebuilder:subresource:status
-// +kubebuilder:subresource:scale:specpath=.spec.router.replicas,statuspath=.status.replicas,selectorpath=.status.selector
+//+kubebuilder:subresource:scale:specpath=.spec.router.replicas,statuspath=.status.replicas,selectorpath=.status.selector
 
 // Network is the Schema for the networks API
 type Network struct {
