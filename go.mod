@@ -3,7 +3,7 @@ module github.com/USA-RedDragon/kubewg
 go 1.22.3
 
 require (
-	github.com/onsi/ginkgo/v2 v2.18.0
+	github.com/onsi/ginkgo/v2 v2.19.0
 	github.com/onsi/gomega v1.33.1
 	k8s.io/apimachinery v0.30.1
 	k8s.io/client-go v0.30.1
