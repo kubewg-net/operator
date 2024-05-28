@@ -16,12 +16,13 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -38,7 +39,7 @@ type RouterSpec struct {
 	// Replicas is the number of router replicas
 	// This defaults to 0, the same as disabling the router
 	//+optional
-	Replicas uint32 `json:"replicas,omitempty"`
+	Replicas int32 `json:"replicas,omitempty"`
 
 	// Network is the selector for the network this peer is a part of
 	Network NameSelectorSpec `json:"network"`
@@ -49,9 +50,10 @@ type RouterSpec struct {
 	// This defaults to ghcr.io/usa-reddragon/wireguard:main
 	Image string `json:"image,omitempty"`
 
-	// Init is the optional initial container configuration that is applied to this router
+	// DNS is the optional DNS configuration
+	// This overrides the default DNS configuration from the Network
 	//+optional
-	Init InitSpec `json:"init"`
+	DNS corev1.PodDNSConfig `json:"dns"`
 
 	// ExternalVPN is the optional external VPN configuration
 	// If specified, the router will route traffic through the external VPN

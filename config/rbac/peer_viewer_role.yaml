@@ -8,7 +8,7 @@ metadata:
   name: peer-viewer-role
 rules:
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - peers
   verbs:
@@ -16,7 +16,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - peers/status
   verbs:

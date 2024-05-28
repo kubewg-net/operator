@@ -16,11 +16,11 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 //+kubebuilder:object:generate=true
-//+groupName=kubewg.mcswain.dev
+//+groupName=kubewg.net
 
 // Package v1 contains API Schema definitions for the kubewg v1 API group
 package v1
@@ -32,7 +32,7 @@ import (
 
 var (
 	// GroupVersion is group version used to register these objects
-	GroupVersion = schema.GroupVersion{Group: "kubewg.mcswain.dev", Version: "v1"}
+	GroupVersion = schema.GroupVersion{Group: "kubewg.net", Version: "v1"}
 
 	// SchemeBuilder is used to add go types to the GroupVersionKind scheme
 	SchemeBuilder = &scheme.Builder{GroupVersion: GroupVersion}

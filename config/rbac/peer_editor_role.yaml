@@ -8,7 +8,7 @@ metadata:
   name: peer-editor-role
 rules:
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - peers
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - peers/status
   verbs:

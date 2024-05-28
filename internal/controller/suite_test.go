@@ -16,7 +16,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 package controller_test
@@ -27,7 +27,7 @@ import (
 	"runtime"
 	"testing"
 
-	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
+	kubewgv1 "github.com/kubewg-net/operator/api/v1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes/scheme"

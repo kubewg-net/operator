@@ -16,7 +16,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 // Package controller is the implementation of the CRDs
@@ -25,7 +25,7 @@ package controller
 import (
 	"context"
 
-	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
+	kubewgv1 "github.com/kubewg-net/operator/api/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,9 +38,9 @@ type NetworkReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=kubewg.mcswain.dev,resources=networks,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=kubewg.mcswain.dev,resources=networks/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=kubewg.mcswain.dev,resources=networks/finalizers,verbs=update
+//+kubebuilder:rbac:groups=kubewg.net,resources=networks,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=kubewg.net,resources=networks/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=kubewg.net,resources=networks/finalizers,verbs=update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

@@ -16,12 +16,13 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 package v1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -35,7 +36,7 @@ type NetworkSpec struct {
 
 	// DNS is the optional DNS configuration
 	//+optional
-	DNS DNSSpec `json:"dns"`
+	DNS corev1.PodDNSConfig `json:"dns"`
 }
 
 // NetworkStatus defines the observed state of Network

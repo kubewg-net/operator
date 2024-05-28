@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: peers.kubewg.mcswain.dev
+  name: peers.kubewg.net
 spec:
-  group: kubewg.mcswain.dev
+  group: kubewg.net
   names:
     kind: Peer
     listKind: PeerList
@@ -263,22 +263,6 @@ spec:
                 description: Init is the optional initial container configuration
                   that is applied to the peer
                 properties:
-                  dns:
-                    description: |-
-                      DNS is the optional DNS configuration
-                      This overrides the default DNS configuration from the Network
-                    properties:
-                      nameservers:
-                        default:
-                        - 1.1.1.1
-                        - 1.0.0.1
-                        description: |-
-                          Nameservers is a list of DNS nameservers
-                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
-                        items:
-                          type: string
-                        type: array
-                    type: object
                   image:
                     default: ghcr.io/usa-reddragon/wireguard:main
                     description: |-

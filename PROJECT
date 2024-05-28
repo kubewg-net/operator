@@ -2,38 +2,38 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: mcswain.dev
+domain: kubewg.net
 layout:
 - go.kubebuilder.io/v4
 plugins:
   grafana.kubebuilder.io/v1-alpha: {}
 projectName: kubewg
-repo: github.com/USA-RedDragon/kubewg
+repo: github.com/kubewg-net/operator
 resources:
 - api:
     crdVersion: v1
   controller: true
-  domain: mcswain.dev
+  domain: kubewg.net
   group: kubewg
   kind: Network
-  path: github.com/USA-RedDragon/kubewg/api/v1
+  path: github.com/kubewg-net/operator/api/v1
   version: v1
 - api:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: mcswain.dev
+  domain: kubewg.net
   group: kubewg
   kind: Peer
-  path: github.com/USA-RedDragon/kubewg/api/v1
+  path: github.com/kubewg-net/operator/api/v1
   version: v1
 - api:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: mcswain.dev
+  domain: kubewg.net
   group: kubewg
   kind: Router
-  path: github.com/USA-RedDragon/kubewg/api/v1
+  path: github.com/kubewg-net/operator/api/v1
   version: v1
 version: "3"

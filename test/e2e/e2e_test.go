@@ -16,7 +16,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 package e2e_test
@@ -26,7 +26,7 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/USA-RedDragon/kubewg/test/utils"
+	"github.com/kubewg-net/operator/test/utils"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )

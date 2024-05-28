@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: networks.kubewg.mcswain.dev
+  name: networks.kubewg.net
 spec:
-  group: kubewg.mcswain.dev
+  group: kubewg.net
   names:
     kind: Network
     listKind: NetworkList
@@ -47,15 +47,41 @@ spec:
                 description: DNS is the optional DNS configuration
                 properties:
                   nameservers:
-                    default:
-                    - 1.1.1.1
-                    - 1.0.0.1
                     description: |-
-                      Nameservers is a list of DNS nameservers
-                      If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
+                      A list of DNS name server IP addresses.
+                      This will be appended to the base nameservers generated from DNSPolicy.
+                      Duplicated nameservers will be removed.
                     items:
                       type: string
                     type: array
+                    x-kubernetes-list-type: atomic
+                  options:
+                    description: |-
+                      A list of DNS resolver options.
+                      This will be merged with the base options generated from DNSPolicy.
+                      Duplicated entries will be removed. Resolution options given in Options
+                      will override those that appear in the base DNSPolicy.
+                    items:
+                      description: PodDNSConfigOption defines DNS resolver options
+                        of a pod.
+                      properties:
+                        name:
+                          description: Required.
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
+                    x-kubernetes-list-type: atomic
+                  searches:
+                    description: |-
+                      A list of DNS search domains for host-name lookup.
+                      This will be appended to the base search paths generated from DNSPolicy.
+                      Duplicated search paths will be removed.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: atomic
                 type: object
             type: object
           status:

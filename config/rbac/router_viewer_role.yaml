@@ -8,7 +8,7 @@ metadata:
   name: router-viewer-role
 rules:
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - routers
   verbs:
@@ -16,7 +16,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - routers/status
   verbs:

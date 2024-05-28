@@ -1,4 +1,4 @@
-apiVersion: kubewg.mcswain.dev/v1
+apiVersion: kubewg.net/v1
 kind: Router
 metadata:
   labels:

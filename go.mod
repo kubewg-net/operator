@@ -1,4 +1,4 @@
-module github.com/USA-RedDragon/kubewg
+module github.com/kubewg-net/operator
 
 go 1.22.3
 

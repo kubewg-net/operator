@@ -4,9 +4,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: routers.kubewg.mcswain.dev
+  name: routers.kubewg.net
 spec:
-  group: kubewg.mcswain.dev
+  group: kubewg.net
   names:
     kind: Router
     listKind: RouterList
@@ -46,6 +46,48 @@ spec:
           spec:
             description: RouterSpec defines the desired state of Router
             properties:
+              dns:
+                description: |-
+                  DNS is the optional DNS configuration
+                  This overrides the default DNS configuration from the Network
+                properties:
+                  nameservers:
+                    description: |-
+                      A list of DNS name server IP addresses.
+                      This will be appended to the base nameservers generated from DNSPolicy.
+                      Duplicated nameservers will be removed.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: atomic
+                  options:
+                    description: |-
+                      A list of DNS resolver options.
+                      This will be merged with the base options generated from DNSPolicy.
+                      Duplicated entries will be removed. Resolution options given in Options
+                      will override those that appear in the base DNSPolicy.
+                    items:
+                      description: PodDNSConfigOption defines DNS resolver options
+                        of a pod.
+                      properties:
+                        name:
+                          description: Required.
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                    type: array
+                    x-kubernetes-list-type: atomic
+                  searches:
+                    description: |-
+                      A list of DNS search domains for host-name lookup.
+                      This will be appended to the base search paths generated from DNSPolicy.
+                      Duplicated search paths will be removed.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: atomic
+                type: object
               externalVPN:
                 description: |-
                   ExternalVPN is the optional external VPN configuration
@@ -336,33 +378,6 @@ spec:
                   Image is the container image for the router
                   This defaults to ghcr.io/usa-reddragon/wireguard:main
                 type: string
-              init:
-                description: Init is the optional initial container configuration
-                  that is applied to this router
-                properties:
-                  dns:
-                    description: |-
-                      DNS is the optional DNS configuration
-                      This overrides the default DNS configuration from the Network
-                    properties:
-                      nameservers:
-                        default:
-                        - 1.1.1.1
-                        - 1.0.0.1
-                        description: |-
-                          Nameservers is a list of DNS nameservers
-                          If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
-                        items:
-                          type: string
-                        type: array
-                    type: object
-                  image:
-                    default: ghcr.io/usa-reddragon/wireguard:main
-                    description: |-
-                      Image is the container image
-                      If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
-                    type: string
-                type: object
               network:
                 description: Network is the selector for the network this peer is
                   a part of

@@ -8,7 +8,7 @@ metadata:
   name: network-editor-role
 rules:
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - networks
   verbs:
@@ -20,7 +20,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - kubewg.mcswain.dev
+  - kubewg.net
   resources:
   - networks/status
   verbs:

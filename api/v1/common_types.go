@@ -16,7 +16,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-The source code is available at <https://github.com/USA-RedDragon/kubewg>
+The source code is available at <https://github.com/kubewg-net/operator>
 */
 
 package v1
@@ -27,16 +27,6 @@ type NameSelectorSpec struct {
 	Name string `json:"name"`
 }
 
-// DNSSpec defines the DNS configuration for a container
-type DNSSpec struct {
-	//+kubebuilder:default={"1.1.1.1","1.0.0.1"}
-
-	// Nameservers is a list of DNS nameservers
-	// If not specified, the default nameservers of 1.1.1.1 and 1.0.0.1 are used
-	//+optional
-	Nameservers []string `json:"nameservers"`
-}
-
 // InitSpec defines the initial container configuration
 type InitSpec struct {
 	//+kubebuilder:default="ghcr.io/usa-reddragon/wireguard:main"
@@ -45,11 +35,6 @@ type InitSpec struct {
 	// If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
 	//+optional
 	Image string `json:"image,omitempty"`
-
-	// DNS is the optional DNS configuration
-	// This overrides the default DNS configuration from the Network
-	//+optional
-	DNS DNSSpec `json:"dns"`
 }
 
 // FirewallSpec defines the firewall configuration for a container

@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 //
-// The source code is available at <https://github.com/USA-RedDragon/kubewg>
+// The source code is available at <https://github.com/kubewg-net/operator>
 
 // Package main contains the main entrypoint for the controller.
 package main
@@ -28,8 +28,8 @@ import (
 	"flag"
 	"os"
 
-	kubewgv1 "github.com/USA-RedDragon/kubewg/api/v1"
-	"github.com/USA-RedDragon/kubewg/internal/controller"
+	kubewgv1 "github.com/kubewg-net/operator/api/v1"
+	"github.com/kubewg-net/operator/internal/controller"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
@@ -112,7 +112,7 @@ func main() {
 		WebhookServer:          webhookServer,
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "a01ee9ca.mcswain.dev",
+		LeaderElectionID:       "a01ee9ca.kubewg.net",
 		// LeaderElectionReleaseOnCancel defines if the leader should step down voluntarily
 		// when the Manager ends. This requires the binary to immediately end when the
 		// Manager is stopped, otherwise, this setting is unsafe. Setting this significantly
