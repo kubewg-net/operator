@@ -31,18 +31,6 @@ func DeploymentFromRouterCRD(router *kubewgv1.Router, network *kubewgv1.Network,
 					Labels: *labels,
 				},
 				Spec: corev1.PodSpec{
-					SecurityContext: &corev1.PodSecurityContext{
-						Sysctls: []corev1.Sysctl{
-							{
-								Name:  "net.ipv4.conf.all.src_valid_mark",
-								Value: "1",
-							},
-							{
-								Name:  "net.ipv4.ip_forward",
-								Value: "1",
-							},
-						},
-					},
 					DNSPolicy: corev1.DNSClusterFirst,
 					DNSConfig: dnsConfig,
 					Containers: []corev1.Container{
