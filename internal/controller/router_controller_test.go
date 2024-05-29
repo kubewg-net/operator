@@ -44,33 +44,62 @@ var _ = Describe("Router Controller", func() {
 
 		typeNamespacedName := types.NamespacedName{
 			Name:      resourceName,
-			Namespace: "default", // TODO(user):Modify as needed
+			Namespace: "default",
 		}
 		router := &kubewgv1.Router{}
+		network := &kubewgv1.Network{}
 
 		BeforeEach(func() {
+			By("creating the test network for the Router")
+			err := k8sClient.Get(ctx, types.NamespacedName{
+				Name:      resourceName,
+				Namespace: "default",
+			}, network)
+			if err != nil && errors.IsNotFound(err) {
+				resource := &kubewgv1.Network{
+					ObjectMeta: metav1.ObjectMeta{
+						Name:      resourceName,
+						Namespace: "default",
+					},
+				}
+				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
+			}
+
 			By("creating the custom resource for the Kind Router")
-			err := k8sClient.Get(ctx, typeNamespacedName, router)
+			err = k8sClient.Get(ctx, typeNamespacedName, router)
 			if err != nil && errors.IsNotFound(err) {
 				resource := &kubewgv1.Router{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
 					},
-					// TODO(user): Specify other spec details if needed.
+					Spec: kubewgv1.RouterSpec{
+						Network: kubewgv1.NameSelectorSpec{
+							Name: resourceName,
+						},
+					},
 				}
 				Expect(k8sClient.Create(ctx, resource)).To(Succeed())
 			}
 		})
 
 		AfterEach(func() {
-			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &kubewgv1.Router{}
-			err := k8sClient.Get(ctx, typeNamespacedName, resource)
+			router := &kubewgv1.Router{}
+			err := k8sClient.Get(ctx, typeNamespacedName, router)
 			Expect(err).NotTo(HaveOccurred())
 
 			By("Cleanup the specific resource instance Router")
-			Expect(k8sClient.Delete(ctx, resource)).To(Succeed())
+			Expect(k8sClient.Delete(ctx, router)).To(Succeed())
+
+			network = &kubewgv1.Network{}
+			err = k8sClient.Get(ctx, types.NamespacedName{
+				Name:      resourceName,
+				Namespace: "default",
+			}, network)
+			Expect(err).NotTo(HaveOccurred())
+
+			By("Cleanup the test network")
+			Expect(k8sClient.Delete(ctx, network)).To(Succeed())
 		})
 		It("should successfully reconcile the resource", func() {
 			By("Reconciling the created resource")
