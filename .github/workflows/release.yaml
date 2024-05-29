@@ -18,5 +18,7 @@ jobs:
     uses: USA-RedDragon/reusable-actions/.github/workflows/goreleaser.yaml@v1.1.0
     with:
       run-before: make manifests generate
+      docker-hub-username: kubewg
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+      docker-hub-password: ${{ secrets.DOCKER_HUB_TOKEN }}

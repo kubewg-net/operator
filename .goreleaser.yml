@@ -1,12 +1,12 @@
 ---
-project_name: kubewg-operator
+project_name: operator
 
 release:
   extra_files:
     - glob: ./LICENSE
   github:
     owner: kubewg-net
-    name: "operator"
+    name: "{{ .ProjectName }}"
 
 dockers:
   - image_templates:
@@ -14,6 +14,10 @@ dockers:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}-arm64"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-arm64"
     use: buildx
     goarch: arm64
     extra_files:
@@ -21,18 +25,22 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.title=kubewg-{{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - --label=org.opencontainers.image.licenses=AGPL-3.0-or-later
-      - --label=org.opencontainers.image.url=https://github.com/kubewg-net/{{ .ProjectName }}
-      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/{{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://kubewg.net
+      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/operator
       - "--platform=linux/arm64"
   - image_templates:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:{{ .Tag }}-amd64v1"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}-amd64v1"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v1"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v1"
     use: buildx
     goarch: amd64
     extra_files:
@@ -41,18 +49,22 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.title=kubewg-{{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - --label=org.opencontainers.image.licenses=AGPL-3.0-or-later
-      - --label=org.opencontainers.image.url=https://github.com/kubewg-net/{{ .ProjectName }}
-      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/{{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://kubewg.net
+      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/operator
       - "--platform=linux/amd64/v1"
   - image_templates:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:{{ .Tag }}-amd64v2"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}-amd64v2"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v2"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v2"
     use: buildx
     goarch: amd64
     extra_files:
@@ -61,18 +73,22 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.title=kubewg-{{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - --label=org.opencontainers.image.licenses=AGPL-3.0-or-later
-      - --label=org.opencontainers.image.url=https://github.com/kubewg-net/{{ .ProjectName }}
-      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/{{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://kubewg.net
+      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/operator
       - "--platform=linux/amd64/v2"
   - image_templates:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:{{ .Tag }}-amd64v3"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}-amd64v3"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v3"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v3"
     use: buildx
     goarch: amd64
     extra_files:
@@ -81,18 +97,22 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.title=kubewg-{{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - --label=org.opencontainers.image.licenses=AGPL-3.0-or-later
-      - --label=org.opencontainers.image.url=https://github.com/kubewg-net/{{ .ProjectName }}
-      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/{{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://kubewg.net
+      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/operator
       - "--platform=linux/amd64/v3"
   - image_templates:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:{{ .Tag }}-amd64v4"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}-amd64v4"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v4"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v4"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v4"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v4"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v4"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v4"
     use: buildx
     goarch: amd64
     extra_files:
@@ -101,12 +121,12 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.title=kubewg-{{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - --label=org.opencontainers.image.licenses=AGPL-3.0-or-later
-      - --label=org.opencontainers.image.url=https://github.com/kubewg-net/{{ .ProjectName }}
-      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/{{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://kubewg.net
+      - --label=org.opencontainers.image.source=https://github.com/kubewg-net/operator
       - "--platform=linux/amd64/v4"
 
 docker_manifests:
@@ -138,6 +158,35 @@ docker_manifests:
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v2"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v3"
       - "ghcr.io/kubewg-net/{{ .ProjectName }}:latest-amd64v4"
+
+  - name_template: "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}"
+    image_templates:
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:{{ .Tag }}-amd64v4"
+  - name_template: "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}"
+    image_templates:
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}-amd64v4"
+  - name_template: "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}"
+    image_templates:
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64v4"
+  - name_template: "docker.io/kubewg/{{ .ProjectName }}:latest"
+    image_templates:
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-arm64"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v1"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v2"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v3"
+      - "docker.io/kubewg/{{ .ProjectName }}:latest-amd64v4"
 
 builds:
   - main: ./cmd/main.go

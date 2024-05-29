@@ -1,5 +1,5 @@
 FROM scratch
 COPY hack/passwd /etc/passwd
-COPY kubewg-operator /
+COPY operator /
 USER 65534
-ENTRYPOINT ["/kubewg-operator"]
+ENTRYPOINT ["/operator"]
