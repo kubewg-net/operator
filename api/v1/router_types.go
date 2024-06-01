@@ -44,10 +44,10 @@ type RouterSpec struct {
 	// Network is the selector for the network this peer is a part of
 	Network NameSelectorSpec `json:"network"`
 
-	//+kubebuilder:default="ghcr.io/usa-reddragon/wireguard:main"
+	//+kubebuilder:default="ghcr.io/kubewg-net/container:v0.0.0@sha256:c6f1c2fa01fe79caaa8de7f546e53e089091710bc0dab3fc676a4206424c8040"
 
 	// Image is the container image for the router
-	// This defaults to ghcr.io/usa-reddragon/wireguard:main
+	// This defaults to ghcr.io/kubewg-net/container:v0.0.0@sha256:c6f1c2fa01fe79caaa8de7f546e53e089091710bc0dab3fc676a4206424c8040
 	Image string `json:"image,omitempty"`
 
 	// DNS is the optional DNS configuration

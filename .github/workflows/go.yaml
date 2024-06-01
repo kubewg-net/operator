@@ -35,10 +35,14 @@ jobs:
       matrix:
         # Supported versions at https://kubernetes.io/releases/
         version:
-        - v1.27.13 # EOL 2024-06-28
-        - v1.28.9 # EOL 2024-10-28
-        - v1.29.4 # EOL 2025-02-28
-        - v1.30.0 # EOL 2025-06-28
+        # renovate: k8s: datasource=docker depName=kindest/node
+        - v1.27.13
+        # renovate: k8s: datasource=docker depName=kindest/node
+        - v1.28.9
+        # renovate: k8s: datasource=docker depName=kindest/node
+        - v1.29.4
+        # renovate: k8s: datasource=docker depName=kindest/node
+        - v1.30.0
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5

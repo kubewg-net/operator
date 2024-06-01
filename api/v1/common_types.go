@@ -29,10 +29,10 @@ type NameSelectorSpec struct {
 
 // InitSpec defines the initial container configuration
 type InitSpec struct {
-	//+kubebuilder:default="ghcr.io/usa-reddragon/wireguard:main"
+	//+kubebuilder:default="ghcr.io/kubewg-net/container:v0.0.0@sha256:c6f1c2fa01fe79caaa8de7f546e53e089091710bc0dab3fc676a4206424c8040"
 
 	// Image is the container image
-	// If not specified, the default image of ghcr.io/usa-reddragon/wireguard:main is used
+	// If not specified, the default image of ghcr.io/kubewg-net/container:v0.0.0@sha256:c6f1c2fa01fe79caaa8de7f546e53e089091710bc0dab3fc676a4206424c8040 is used
 	//+optional
 	Image string `json:"image,omitempty"`
 }
