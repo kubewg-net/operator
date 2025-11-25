@@ -12,7 +12,7 @@ concurrency:
 jobs:
   lint:
     name: lint
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -29,7 +29,7 @@ jobs:
           only-new-issues: true
   test-e2e:
     name: test-e2e
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -58,7 +58,7 @@ jobs:
   e2e-results:
     name: e2e-results
     if: always()
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [test-e2e]
     steps:
       - run: |
